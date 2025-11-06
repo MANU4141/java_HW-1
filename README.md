@@ -1,12 +1,17 @@
-# HW1: Calculator in the Cloud
-
-## 개요
-본 프로젝트는 Java Socket 프로그래밍을 이용하여 구현한 **클라이언트-서버 기반 계산기 애플리케이션**이다.  
-클라이언트는 사용자의 연산 요청을 서버로 전송하고, 서버는 **사칙연산 수행 및 예외 처리 후 결과를 응답**한다.
+좋아, 전체 내용을 **영어로 자연스럽게 기술 문서 스타일로 번역**해줄게.
 
 ---
 
-## 프로젝트 구조
+# HW1: Calculator in the Cloud
+
+## Overview
+
+This project is a **client-server based calculator application** implemented using Java Socket programming.
+The client sends arithmetic operation requests to the server, and the server **performs the computation with proper exception handling** and returns the result.
+
+---
+
+## Project Structure
 
 ```
 HW1_SRC/
@@ -17,66 +22,73 @@ HW1_SRC/
  └─ server_info.dat
 ```
 
-**CN 패키지** 내부에서 Client, Server, Task(Worker)가 동작한다.
+All components (Client, Server, Worker Task) operate inside the **CN** package.
 
 ---
 
-## 실행 방법
+## How to Run
 
-### 1) 컴파일
+### 1) Compile
+
 ```bash
 javac CN/*.java
 ```
 
-### 2) 서버 실행
+### 2) Start the Server
+
 ```bash
 java CN.CalculatorServer
 ```
 
-### 3) 클라이언트 실행 (새 터미널에서)
+### 3) Run the Client (in a separate terminal)
+
 ```bash
 java CN.CalculatorClient
 ```
 
 ---
 
-## 서버-클라이언트 통신 프로토콜 (ASCII 기반)
+## Server-Client Communication Protocol (ASCII-based)
 
-| 구분 | 형식 | 설명 | 예시 |
-|---|---|---|---|
-| 요청(Request) | `OP A B` | 연산자 + 피연산자 2개 | `ADD 10 20` |
-| 성공 응답 | `OK value` | 계산 성공 결과 | `OK 30` |
-| 오류 응답 | `ERR CODE` | 오류 코드 반환 | `ERR DIV_BY_ZERO` |
+| Type             | Format     | Description             | Example           |
+| ---------------- | ---------- | ----------------------- | ----------------- |
+| Request          | `OP A B`   | Operator + two operands | `ADD 10 20`       |
+| Success Response | `OK value` | Successful result       | `OK 30`           |
+| Error Response   | `ERR CODE` | Returns an error code   | `ERR DIV_BY_ZERO` |
 
-### 지원 연산자
-| 연산자 | 의미 |
-|---|---|
-| ADD | 덧셈 |
-| SUB | 뺄셈 |
-| MUL | 곱셈 |
-| DIV | 나눗셈 (0 나누기 예외 처리 포함) |
+### Supported Operators
 
-### 오류 코드
-| 코드 | 의미 |
-|---|---|
-| DIV_BY_ZERO | 0으로 나누기 발생 |
-| BAD_OPERATOR | 미지원 연산자 |
-| BAD_ARITY | 인자 개수 부족 / 초과 |
-| BAD_NUMBER | 숫자 변환 불가 |
-| MALFORMED | 형식 오류 |
+| Operator | Meaning                                 |
+| -------- | --------------------------------------- |
+| ADD      | Addition                                |
+| SUB      | Subtraction                             |
+| MUL      | Multiplication                          |
+| DIV      | Division (with zero-division detection) |
+
+### Error Codes
+
+| Code         | Description                       |
+| ------------ | --------------------------------- |
+| DIV_BY_ZERO  | Division by zero occurred         |
+| BAD_OPERATOR | Unsupported operator              |
+| BAD_ARITY    | Invalid number of arguments       |
+| BAD_NUMBER   | Failed to parse operand as number |
+| MALFORMED    | Malformed request format          |
 
 ---
 
-## server_info.dat 설정 예시
+## Example server_info.dat
+
 ```
 server.address=localhost
 server.port=1234
 ```
-없을 경우 기본값 (localhost:1234) 자동 적용.
+
+If omitted, defaults to `localhost:1234`.
 
 ---
 
-## 동작 예시 (터미널)
+## Example Run (Terminal Output)
 
 ```
 [Client] Connecting to localhost:1234
@@ -89,4 +101,4 @@ server.port=1234
 [Server] OK BYE
 ```
 
-
+---
